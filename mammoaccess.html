@@ -1,0 +1,248 @@
+<head>
+<meta charset='utf-8' />
+<title>Digital Mammography Access</title>
+<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+<script src='https://api.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.css' rel='stylesheet' />
+    
+<style>
+    body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Helvetica Neue', Helvetica, Arial, Sans-serif;
+}
+
+#map {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+h1 {
+  font-size: 20px;
+  line-height: 30px;
+}
+
+h2 {
+  font-size: 14px;
+  line-height: 20px;
+  margin-bottom: 10px;
+}
+
+a {
+  text-decoration: none;
+  color: #2dc4b2;
+}
+
+#console {
+  position: absolute;
+  width: 150px;
+  margin: 10px;
+  padding: 10px 20px;
+  background-color: white;
+}
+.session {
+  margin-bottom: 0px;
+}
+
+.row {
+  height: px;
+  width: 100%;
+}
+
+.label {
+  width: 15%;
+  display: inline-block;
+  text-align: center;
+}
+    
+.legend {
+background-color: #fff;
+border-radius: 3px;
+bottom: 30px;
+box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+padding: 10px;
+position: absolute;
+right: 10px;
+z-index: 1;
+}
+ 
+.legend h4 {
+margin: 0 0 10px;
+}
+ 
+.legend div span {
+border-radius: 50%;
+display: inline-block;
+height: 10px;
+margin-right: 5px;
+width: 10px;
+}
+
+</style>    
+    
+</head>
+
+<body>
+<div id='map'></div>
+<div id='console'>
+  <h1>Digital Mammography Access</h1>
+    <div class='session'>
+  <div class='row colors'>
+  </div>
+  <div class='row labels'>
+  </div>
+</div>
+    <div class='session' id='sliderbar'>
+  <h2>Year: <label id='active-year'>2010</label></h2>
+  <input id='slider' class='row' type='range' min='2010' max='2014' step='1' value='2010' />
+</div>
+</div>
+    <div class='map-overlay' id='legend'></div>
+
+    <div id="state-legend" class="legend">
+<h4>Access</h4>
+<div><span style="background-color: #2dc4b2"></span>no Digital  mammography available within 20 min drive </div>
+<div><span style="background-color: #3bb3c3"></span>Digital mammography available within 20 min drive </div>
+<div><span style="background-color: #669ec4"></span>no access to mammography within 20 min drive </div>
+</div>
+ 
+    
+    
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoidHVnMzUxODciLCJhIjoiY2s1azRmaWU0MGFkZTNrbXZrNzI5dG9nayJ9.iHke3esydMcOzhVH7SW8qw';
+
+var map = new mapboxgl.Map({
+  container: 'map', // container element id
+  style: 'mapbox://styles/mapbox/light-v10',
+  center: [-98.5795, 39.8283], // initial map center in [lon, lat]
+  zoom: 3
+});    
+    
+map.on('load', function() {
+  map.addLayer({
+    id: '2010',
+    type: 'fill',
+    source: {
+      type: 'geojson',
+      data: '2010.geojson' // replace this with the url of your own geojson
+    },
+    paint: {
+      'fill-color': [
+        'interpolate',
+        ['linear'],
+        ['number', ['get', 'famin']],
+        0, '#2DC4B2',
+        1, '#3BB3C3',
+        199, '#669EC4',
+      ],
+      'fill-opacity': 0.8
+    },
+     filter: ['==', ['string', ['get', 'layer']], '2010'] 
+  })
+
+  map.addLayer({
+    id: '2011',
+    type: 'fill',
+    source: {
+      type: 'geojson',
+      data: '2011.geojson' // replace this with the url of your own geojson
+    },
+    paint: {
+      'fill-color': [
+        'interpolate',
+        ['linear'],
+        ['number', ['get', 'famin']],
+        0, '#2DC4B2',
+        1, '#3BB3C3',
+        199, '#669EC4',
+      ],
+      'fill-opacity': 0.8
+    },
+      filter: ['==', ['string', ['get', 'layer']], '2010'] 
+  })
+  map.addLayer({
+    id: '2012',
+    type: 'fill',
+    source: {
+      type: 'geojson',
+      data: '2012.geojson' // replace this with the url of your own geojson
+    },
+    paint: {
+      'fill-color': [
+        'interpolate',
+        ['linear'],
+        ['number', ['get', 'famin']],
+        0, '#2DC4B2',
+        1, '#3BB3C3',
+        199, '#669EC4',
+      ],
+      'fill-opacity': 0.8
+    },
+      filter: ['==', ['string', ['get', 'layer']], '2010'] 
+  })
+  map.addLayer({
+    id: '2013',
+    type: 'fill',
+    source: {
+      type: 'geojson',
+      data: '2013.geojson' // replace this with the url of your own geojson
+    },
+    paint: {
+      'fill-color': [
+        'interpolate',
+        ['linear'],
+        ['number', ['get', 'famin']],
+        0, '#2DC4B2',
+        1, '#3BB3C3',
+        199, '#669EC4',
+      ],
+      'fill-opacity': 0.8
+    },
+      filter: ['==', ['string', ['get', 'layer']], '2010'] 
+  })
+  map.addLayer({
+    id: '2014',
+    type: 'fill',
+    source: {
+      type: 'geojson',
+      data: '2014.geojson' // replace this with the url of your own geojson
+    },
+    paint: {
+      'fill-color': [
+        'interpolate',
+        ['linear'],
+        ['number', ['get', 'famin']],
+        0, '#2DC4B2',
+        1, '#3BB3C3',
+        199, '#669EC4',
+      ],
+      'fill-opacity': 0.8
+    },
+      filter: ['==', ['string', ['get', 'layer']], '2010'],
+    
+    
+  });
+   
+  document.getElementById('slider').addEventListener('input', function(e) {
+   layer = e.target.value;
+  // update the map
+      console.log(layer)
+     map.setFilter('2010', ['==', ['string', ['get', 'layer']], layer]);  
+     map.setFilter('2011', ['==', ['string', ['get', 'layer']], layer]);  
+     map.setFilter('2012', ['==', ['string', ['get', 'layer']], layer]);  
+     map.setFilter('2013', ['==', ['string', ['get', 'layer']], layer]);  
+     map.setFilter('2014', ['==', ['string', ['get', 'layer']], layer]);  
+
+  // update text in the UI
+  document.getElementById('active-year').innerText = layer;  
+      
+});
+    
+});
+    
+</script>
+
+</body>
